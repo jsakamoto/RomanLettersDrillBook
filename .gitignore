@@ -1,4 +1,6 @@
 /node_modules
+/bower_components
+/typings
 bin/
 obj/
 packages/
