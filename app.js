@@ -62,9 +62,16 @@ var RomanLettersDrillBook;
         return DrawableCanvas;
     })();
 
+    var numOfCells = 2 * 4;
+    var $cellContainer = $('.cell-container');
+    var cellHtml = $cellContainer.html();
+    for (var i = 0; i < numOfCells; i++)
+        $cellContainer.append(cellHtml);
+
     $('.canvas-cell').each(function (n, e) {
         return new DrawableCanvas(e);
     });
+
     $(document).on('draw', function (e) {
         var text = OCRAD(e.target);
         $(e.target).closest('.cell').find('.recognized-text').text(text);
