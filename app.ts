@@ -1,5 +1,8 @@
 ﻿/// <reference path="typings/jquery/jquery.d.ts" />
+
 module RomanLettersDrillBook {
+
+    declare function OCRAD(image: any): string;
 
     class Point {
         x: number;
@@ -9,12 +12,20 @@ module RomanLettersDrillBook {
     class DrawableCanvas {
         lastPoint: Point;
         context: CanvasRenderingContext2D;
+        canvasElement: HTMLCanvasElement;
+        debounceTimer: number;
 
-        constructor(canvasElement: any) {
+        constructor(canvasElement: HTMLCanvasElement) {
             this.lastPoint = null;
+            this.canvasElement = canvasElement;
             this.context = canvasElement.getContext('2d');
+            this.context.fillStyle = 'white';
+            this.context.fillRect(0, 0, canvasElement.width, canvasElement.height);
+            this.context.fillStyle = 'black';
+
             this.context.lineJoin = 'round';
             this.context.lineWidth = 4;
+            this.debounceTimer = null;
 
             var convertToPoint = (e: JQueryMouseEventObject) => { return { x: e.offsetX, y: e.offsetY } };
 
@@ -32,12 +43,27 @@ module RomanLettersDrillBook {
             var $canvas = $(canvasElement);
             $canvas
                 .mousedown(e => this.lastPoint = convertToPoint(e))
-                .mouseup(e => this.lastPoint = null)
+                .mouseup(e => {
+                    this.lastPoint = null;
+                    this.fireDrawEvent();
+                })
                 .mousemove(e => drawStroke(e, false))
                 .mouseleave(e => drawStroke(e, true))
                 .mouseenter(e => drawStroke(e, false));
         }
+
+        private fireDrawEvent() {
+            if (this.debounceTimer != null) clearTimeout(this.debounceTimer);
+            this.debounceTimer = setTimeout(() => {
+                $(this.canvasElement).trigger('draw');
+            }, 200);
+        }
     }
 
-    $('.canvas-cell').each((n, e) => new DrawableCanvas(e));
+    $('.canvas-cell').each((n, e: HTMLCanvasElement) => new DrawableCanvas(e));
+    $(document).on('draw', e => {
+            var text = OCRAD(e.target);
+            $(e.target).closest('.cell').find('.recognized-text').text(text);
+        });
+
 } 
