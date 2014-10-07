@@ -72,9 +72,17 @@ var RomanLettersDrillBook;
         return new DrawableCanvas(e);
     });
 
+    var $recognizedTexts = $('.recognized-text');
+
     $(document).on('draw', function (e) {
         var text = OCRAD(e.target);
-        $(e.target).closest('.cell').find('.recognized-text').text(text);
+        $(e.target).closest('.cell').find('.recognized-text').text(text.trim());
+
+        var letters = $recognizedTexts.map(function (n, e) {
+            return $(e).text();
+        }).toArray().map(function (t) {
+            return t == "" ? " " : t;
+        }).join('').trim();
     });
 })(RomanLettersDrillBook || (RomanLettersDrillBook = {}));
 //# sourceMappingURL=app.js.map

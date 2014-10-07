@@ -67,9 +67,15 @@ module RomanLettersDrillBook {
 
     $('.canvas-cell').each((n, e: HTMLCanvasElement) => new DrawableCanvas(e));
 
+    var $recognizedTexts = $('.recognized-text');
+
     $(document).on('draw', e => {
         var text = OCRAD(e.target);
-        $(e.target).closest('.cell').find('.recognized-text').text(text);
-    });
+        $(e.target).closest('.cell').find('.recognized-text').text(text.trim());
 
+        var letters = $recognizedTexts
+            .map((n, e) => $(e).text()).toArray()
+            .map(t => t == "" ? " " : t)
+            .join('').trim();
+    });
 } 
