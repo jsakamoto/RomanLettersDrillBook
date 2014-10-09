@@ -36,11 +36,12 @@
         { R: 'HA', J: 'は' },
         { R: 'HI', J: 'ひ' },
         { R: 'HU', J: 'ふ' },
+        { R: 'FU', J: 'ふ' },
         { R: 'HE', J: 'へ' },
         { R: 'HO', J: 'ほ' },
 
-        { R: 'MI', J: 'ま' },
-        { R: 'MA', J: 'み' },
+        { R: 'MA', J: 'ま' },
+        { R: 'MI', J: 'み' },
         { R: 'MU', J: 'む' },
         { R: 'ME', J: 'め' },
         { R: 'MO', J: 'も' },
@@ -102,6 +103,10 @@
         { R: 'SHE', J: 'しぇ' },
         { R: 'SHO', J: 'しょ' },
         { R: 'SYO', J: 'しょ' },
+
+        { R: 'CHA', J: 'ちゃ' },
+        { R: 'CHU', J: 'ちゅ' },
+        { R: 'CHO', J: 'ちょ' },
     ];
 
     export interface TranslatedBlock {

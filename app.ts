@@ -24,7 +24,7 @@ module RomanLettersDrillBook {
             this.context.fillStyle = 'black';
 
             this.context.lineJoin = 'round';
-            this.context.lineWidth = 4;
+            this.context.lineWidth = 8;
             this.debounceTimer = null;
 
             var convertToPoint = (e: JQueryMouseEventObject) => { return { x: e.offsetX, y: e.offsetY } };
@@ -70,9 +70,62 @@ module RomanLettersDrillBook {
     var $recognizedTexts = $('.recognized-text');
     var $translatedTexts = $('.translated-text');
 
+    var mapFixUp = {
+        'A': 'A',
+        'B': 'B',
+        'C': 'C',
+        'D': 'D',
+        'E': 'E',
+        'F': 'F',
+        'G': 'G',
+        'H': 'H',
+        'I': 'I',
+        'J': 'J',
+        'K': 'K',
+        'L': 'L',
+        'M': 'M',
+        'N': 'N',
+        'O': 'O',
+        'P': 'P',
+        'Q': 'Q',
+        'R': 'R',
+        'S': 'S',
+        'T': 'T',
+        'U': 'U',
+        'V': 'V',
+        'W': 'W',
+        'X': 'X',
+        'Y': 'Y',
+        'Z': 'Z',
+
+        'c': 'C',
+        'o': 'O',
+        '0': 'O',
+        's': 'S',
+        '5': 'S',
+        'g': 'S',
+        'w': 'W',
+        'x': 'X',
+        'z': 'Z',
+        'u': 'U',
+        'l': 'I',
+        '|': 'I',
+        'r': 'T',
+        'v': 'V',
+    };
+
     $(document).on('draw', e => {
-        var text = OCRAD(e.target);
-        $(e.target).closest('.cell').find('.recognized-text').text(text.trim());
+        var text = (OCRAD(e.target) || '').trim();
+        if (text == '') text = ' ';
+        else {
+            var out = mapFixUp[text];
+            if (out == undefined) {
+                console.log('unrecognized:' + text);
+                out = '?';
+            }
+            text = out;
+        }
+        $(e.target).closest('.cell').find('.recognized-text').text(text);
 
         var letters = $recognizedTexts
             .map((n, e) => $(e).text()).toArray()
