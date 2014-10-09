@@ -68,6 +68,7 @@ module RomanLettersDrillBook {
     $('.canvas-cell').each((n, e: HTMLCanvasElement) => new DrawableCanvas(e));
 
     var $recognizedTexts = $('.recognized-text');
+    var $translatedTexts = $('.translated-text');
 
     $(document).on('draw', e => {
         var text = OCRAD(e.target);
@@ -77,5 +78,14 @@ module RomanLettersDrillBook {
             .map((n, e) => $(e).text()).toArray()
             .map(t => t == "" ? " " : t)
             .join('').trim();
+
+        var blocks = translateLettersToJP(letters);
+
+        $translatedTexts.text('');
+        var index = 0;
+        blocks.forEach(b => {
+            $($translatedTexts[index]).text(b.char);
+            index += b.len;
+        });
     });
 } 

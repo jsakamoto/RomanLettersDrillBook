@@ -73,6 +73,7 @@ var RomanLettersDrillBook;
     });
 
     var $recognizedTexts = $('.recognized-text');
+    var $translatedTexts = $('.translated-text');
 
     $(document).on('draw', function (e) {
         var text = OCRAD(e.target);
@@ -83,6 +84,15 @@ var RomanLettersDrillBook;
         }).toArray().map(function (t) {
             return t == "" ? " " : t;
         }).join('').trim();
+
+        var blocks = RomanLettersDrillBook.translateLettersToJP(letters);
+
+        $translatedTexts.text('');
+        var index = 0;
+        blocks.forEach(function (b) {
+            $($translatedTexts[index]).text(b.char);
+            index += b.len;
+        });
     });
 })(RomanLettersDrillBook || (RomanLettersDrillBook = {}));
 //# sourceMappingURL=app.js.map
