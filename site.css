@@ -7,6 +7,10 @@
     box-sizing: border-box;
 }
 
+body {
+    padding-bottom: 100px;
+    position: relative;
+}
 
 header {
     background-color: #0094ff;
@@ -34,6 +38,21 @@ header {
     #btnPlay.disabled {
         opacity: 0.2;
         pointer-events: none;
+    }
+
+footer {
+    position: absolute;
+    bottom: 0;
+    margin: 0px 8px;
+    padding: 8px 0px;
+    border-top: solid 1px #ccc;
+    color: #ccc;
+    font-size: 70%;
+    width: 95%;
+}
+
+    footer a {
+        color: #ccc;
     }
 
 .cell-container {
