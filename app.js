@@ -37,17 +37,23 @@ var RomanLettersDrillBook;
                 _this.lastPoint = isEnd ? null : curPoint;
             };
 
+            var eventType = 'mouse';
+            if (navigator.pointerEnabled)
+                eventType = 'pointer';
+
             var $canvas = $(canvasElement);
-            $canvas.mousedown(function (e) {
-                return _this.lastPoint = convertToPoint(e);
-            }).mouseup(function (e) {
+            $canvas.on(eventType + 'down', function (e) {
+                _this.context.strokeStyle = e.button == 0 ? 'black' : 'white';
+                _this.context.lineWidth = e.button == 0 ? 8 : 32;
+                _this.lastPoint = convertToPoint(e);
+            }).on(eventType + 'up', function (e) {
                 _this.lastPoint = null;
                 _this.fireDrawEvent();
-            }).mousemove(function (e) {
+            }).on(eventType + 'move', function (e) {
                 return drawStroke(e, false);
-            }).mouseleave(function (e) {
+            }).on(eventType + 'leave', function (e) {
                 return drawStroke(e, true);
-            }).mouseenter(function (e) {
+            }).on(eventType + 'enter', function (e) {
                 return drawStroke(e, false);
             });
         }

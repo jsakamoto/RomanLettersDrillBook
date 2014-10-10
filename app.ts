@@ -40,16 +40,23 @@ module RomanLettersDrillBook {
                 this.lastPoint = isEnd ? null : curPoint;
             };
 
+            var eventType = 'mouse';
+            if (navigator.pointerEnabled) eventType = 'pointer';
+
             var $canvas = $(canvasElement);
             $canvas
-                .mousedown(e => this.lastPoint = convertToPoint(e))
-                .mouseup(e => {
+                .on(eventType + 'down', e => {
+                    this.context.strokeStyle = e.button == 0 ? 'black' : 'white';
+                    this.context.lineWidth = e.button == 0 ? 8 : 32;
+                    this.lastPoint = convertToPoint(e);
+                })
+                .on(eventType + 'up', e => {
                     this.lastPoint = null;
                     this.fireDrawEvent();
                 })
-                .mousemove(e => drawStroke(e, false))
-                .mouseleave(e => drawStroke(e, true))
-                .mouseenter(e => drawStroke(e, false));
+                .on(eventType + 'move', e => drawStroke(e, false))
+                .on(eventType + 'leave', e => drawStroke(e, true))
+                .on(eventType + 'enter', e => drawStroke(e, false));
         }
 
         private fireDrawEvent() {
