@@ -89,7 +89,9 @@
         { R: 'SYO', J: 'しょ' },
         { R: 'CHA', J: 'ちゃ' },
         { R: 'CHU', J: 'ちゅ' },
-        { R: 'CHO', J: 'ちょ' }
+        { R: 'CHO', J: 'ちょ' },
+        // white space
+        { R: ' ', J: ' ' }
     ];
 
     function translateLettersToJP(letters) {

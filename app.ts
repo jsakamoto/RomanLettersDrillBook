@@ -67,7 +67,7 @@ module RomanLettersDrillBook {
         }
     }
 
-    var numOfCells = 2 * 4;
+    var numOfCells = 2 * 10;
     var $cellContainer = $('.cell-container');
     var cellHtml = $cellContainer.html();
     for (var i = 0; i < numOfCells; i++)$cellContainer.append(cellHtml);
@@ -121,6 +121,8 @@ module RomanLettersDrillBook {
         'v': 'V',
     };
 
+    var translatedText = '';
+
     $(document).on('draw', e => {
         var text = (OCRAD(e.target) || '').trim();
         if (text == '') text = ' ';
@@ -147,5 +149,30 @@ module RomanLettersDrillBook {
             $($translatedTexts[index]).text(b.char);
             index += b.len;
         });
+
+        translatedText = blocks.map(e=> e.char).join('').trim();
     });
+
+
+    var $btnPlay = $('#btnPlay');
+
+    var audio = new Audio();
+    audio.autoplay = true;
+    audio.onloadstart = () => $btnPlay.addClass('disabled');
+    audio.onloadeddata = () => $btnPlay.removeClass('disabled');
+
+    var prePlayedText = '';
+    $btnPlay.click(() => {
+        if (translatedText == '') return;
+        var url = '/api/voice/' + encodeURI(translatedText);
+        if (prePlayedText == translatedText) {
+            audio.currentTime = 0;
+            audio.play();
+        }
+        else {
+            audio.src = url;
+            prePlayedText = translatedText;
+        }
+    });
+
 } 
