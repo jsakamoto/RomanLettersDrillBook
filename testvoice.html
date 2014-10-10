@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <p>
+        <input type="text" id="text1" value="こんにちは、世界!" />
+    </p>
+    <p>
+        <button id="btnPlay">Play</button>
+    </p>
+
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script>
+        $(function () {
+            var $btnPlay = $('#btnPlay');
+
+            var audio = new Audio();
+            audio.autoplay = true;
+            audio.onloadstart = function () { $btnPlay.attr('disabled', ''); }
+            audio.onloadeddata = function () { $btnPlay.removeAttr('disabled'); }
+
+            $btnPlay.click(function () {
+                var text = encodeURI($('#text1').val());
+                audio.src = '/api/voice/' + text;
+            });
+        });
+    </script>
+</body>
+</html>

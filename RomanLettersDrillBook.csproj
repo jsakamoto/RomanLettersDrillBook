@@ -40,15 +40,87 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio">
+      <HintPath>packages\NAudio.1.7\lib\net35\NAudio.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Lame">
+      <HintPath>packages\NAudio.Lame.1.0.2\lib\net20\NAudio.Lame.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="VoiceTextWebAPI.Client">
+      <HintPath>packages\VoiceTextWebAPI.Client.1.0.0.1-beta\lib\net45\VoiceTextWebAPI.Client.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="bower_components\jquery\dist\jquery.js" />
     <Content Include="bower_components\jquery\dist\jquery.min.js" />
     <Content Include="bower_components\ocrad-bower\ocrad.js" />
+    <Content Include="Global.asax" />
+    <Content Include="images\icons\apple-touch-icon-114x114.png" />
+    <Content Include="images\icons\apple-touch-icon-120x120.png" />
+    <Content Include="images\icons\apple-touch-icon-144x144.png" />
+    <Content Include="images\icons\apple-touch-icon-152x152.png" />
+    <Content Include="images\icons\apple-touch-icon-180x180.png" />
+    <Content Include="images\icons\apple-touch-icon-57x57.png" />
+    <Content Include="images\icons\apple-touch-icon-60x60.png" />
+    <Content Include="images\icons\apple-touch-icon-72x72.png" />
+    <Content Include="images\icons\apple-touch-icon-76x76.png" />
+    <Content Include="images\icons\apple-touch-icon-precomposed.png" />
+    <Content Include="images\icons\apple-touch-icon.png" />
+    <Content Include="images\icons\browserconfig.xml" />
+    <Content Include="images\icons\favicon-160x160.png" />
+    <Content Include="images\icons\favicon-16x16.png" />
+    <Content Include="images\icons\favicon-192x192.png" />
+    <Content Include="images\icons\favicon-32x32.png" />
+    <Content Include="images\icons\favicon-96x96.png" />
+    <Content Include="images\icons\favicon.ico" />
+    <Content Include="images\icons\mstile-144x144.png" />
+    <Content Include="images\icons\mstile-150x150.png" />
+    <Content Include="images\icons\mstile-310x150.png" />
+    <Content Include="images\icons\mstile-310x310.png" />
+    <Content Include="images\icons\mstile-70x70.png" />
     <Content Include="index.html" />
+    <Content Include="libmp3lame.32.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="libmp3lame.64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="site.css" />
+    <Content Include="images\sound.png" />
+    <Content Include="testvoice.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +133,29 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bower_components\jquery\dist\jquery.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="API\VoiceController.cs" />
+    <Compile Include="AppSettings.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppSettings.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AppSettings.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AppSettings.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

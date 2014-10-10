@@ -68,7 +68,7 @@ var RomanLettersDrillBook;
         return DrawableCanvas;
     })();
 
-    var numOfCells = 2 * 4;
+    var numOfCells = 2 * 10;
     var $cellContainer = $('.cell-container');
     var cellHtml = $cellContainer.html();
     for (var i = 0; i < numOfCells; i++)
@@ -124,6 +124,8 @@ var RomanLettersDrillBook;
         'v': 'V'
     };
 
+    var translatedText = '';
+
     $(document).on('draw', function (e) {
         var text = (OCRAD(e.target) || '').trim();
         if (text == '')
@@ -152,6 +154,35 @@ var RomanLettersDrillBook;
             $($translatedTexts[index]).text(b.char);
             index += b.len;
         });
+
+        translatedText = blocks.map(function (e) {
+            return e.char;
+        }).join('').trim();
+    });
+
+    var $btnPlay = $('#btnPlay');
+
+    var audio = new Audio();
+    audio.autoplay = true;
+    audio.onloadstart = function () {
+        return $btnPlay.addClass('disabled');
+    };
+    audio.onloadeddata = function () {
+        return $btnPlay.removeClass('disabled');
+    };
+
+    var prePlayedText = '';
+    $btnPlay.click(function () {
+        if (translatedText == '')
+            return;
+        var url = '/api/voice/' + encodeURI(translatedText);
+        if (prePlayedText == translatedText) {
+            audio.currentTime = 0;
+            audio.play();
+        } else {
+            audio.src = url;
+            prePlayedText = translatedText;
+        }
     });
 })(RomanLettersDrillBook || (RomanLettersDrillBook = {}));
 //# sourceMappingURL=app.js.map

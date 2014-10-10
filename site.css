@@ -1,0 +1,85 @@
+﻿body, div, canvas, span, header, h1 {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    padding-bottom: 100px;
+    position: relative;
+}
+
+header {
+    background-color: #0094ff;
+    color: white;
+    padding: 8px;
+}
+
+    header h1 {
+        display: inline-block;
+        font-size: 32px;
+        line-height: 48px;
+    }
+
+#btnPlay {
+    float: right;
+    height: 48px;
+    width: 48px;
+    border: none;
+    background-image: url(images/sound.png);
+    background-color: transparent;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+    #btnPlay.disabled {
+        opacity: 0.2;
+        pointer-events: none;
+    }
+
+footer {
+    position: absolute;
+    bottom: 0;
+    margin: 0px 8px;
+    padding: 8px 0px;
+    border-top: solid 1px #ccc;
+    color: #ccc;
+    font-size: 70%;
+    width: 95%;
+}
+
+    footer a {
+        color: #ccc;
+    }
+
+.cell-container {
+    padding: 24px;
+}
+
+.cell {
+    display: inline-block;
+}
+
+.canvas-cell {
+    border: solid 1px #888;
+    cursor: default;
+}
+
+.recognized-text {
+    text-align: center;
+    font-size: 18px;
+    height: 28px;
+    line-height: 28px;
+    color: #888;
+}
+
+.translated-text {
+    text-align: center;
+    font-size: 24px;
+    height: 38px;
+    line-height: 38px;
+    color: #000;
+}

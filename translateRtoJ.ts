@@ -107,6 +107,9 @@
         { R: 'CHA', J: 'ちゃ' },
         { R: 'CHU', J: 'ちゅ' },
         { R: 'CHO', J: 'ちょ' },
+
+        // white space
+        { R: ' ', J: ' ' },
     ];
 
     export interface TranslatedBlock {
