@@ -121,7 +121,9 @@ var RomanLettersDrillBook;
         'l': 'I',
         '|': 'I',
         'r': 'T',
-        'v': 'V'
+        'v': 'V',
+        'p': 'P',
+        'a': 'Q'
     };
 
     var translatedText = '';

@@ -119,6 +119,8 @@ module RomanLettersDrillBook {
         '|': 'I',
         'r': 'T',
         'v': 'V',
+        'p': 'P',
+        'a': 'Q',
     };
 
     var translatedText = '';
