@@ -29,34 +29,32 @@ module RomanLettersDrillBook {
 
             var convertToPoint = (e: JQueryMouseEventObject) => { return { x: e.offsetX, y: e.offsetY } };
 
-            var drawStroke = (e: JQueryMouseEventObject, isEnd: boolean) => {
-                if (this.lastPoint == null) return;
-                var curPoint = convertToPoint(e);
-                this.context.beginPath();
-                this.context.moveTo(this.lastPoint.x, this.lastPoint.y);
-                this.context.lineTo(curPoint.x, curPoint.y);
-                this.context.closePath();
-                this.context.stroke();
-                this.lastPoint = isEnd ? null : curPoint;
-            };
-
             var eventType = 'mouse';
             if (navigator.pointerEnabled) eventType = 'pointer';
 
             var $canvas = $(canvasElement);
             $canvas
                 .on(eventType + 'down', e => {
+                    this.canvasElement.setCapture();
                     this.context.strokeStyle = e.button == 0 ? 'black' : 'white';
                     this.context.lineWidth = e.button == 0 ? 8 : 32;
                     this.lastPoint = convertToPoint(e);
                 })
-                .on(eventType + 'up', e => {
+                .on('mousemove', e => {
+                    if (this.lastPoint == null) return;
+                    var curPoint = convertToPoint(e);
+                    this.context.beginPath();
+                    this.context.moveTo(this.lastPoint.x, this.lastPoint.y);
+                    this.context.lineTo(curPoint.x, curPoint.y);
+                    this.context.closePath();
+                    this.context.stroke();
+                    this.lastPoint = curPoint;
+                })
+                .on('mouseup', e => {
+                    this.canvasElement.releaseCapture();
                     this.lastPoint = null;
                     this.fireDrawEvent();
-                })
-                .on(eventType + 'move', e => drawStroke(e, false))
-                .on(eventType + 'leave', e => drawStroke(e, true))
-                .on(eventType + 'enter', e => drawStroke(e, false));
+                });
         }
 
         private fireDrawEvent() {

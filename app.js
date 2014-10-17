@@ -25,7 +25,17 @@ var RomanLettersDrillBook;
                 return { x: e.offsetX, y: e.offsetY };
             };
 
-            var drawStroke = function (e, isEnd) {
+            var eventType = 'mouse';
+            if (navigator.pointerEnabled)
+                eventType = 'pointer';
+
+            var $canvas = $(canvasElement);
+            $canvas.on(eventType + 'down', function (e) {
+                _this.canvasElement.setCapture();
+                _this.context.strokeStyle = e.button == 0 ? 'black' : 'white';
+                _this.context.lineWidth = e.button == 0 ? 8 : 32;
+                _this.lastPoint = convertToPoint(e);
+            }).on('mousemove', function (e) {
                 if (_this.lastPoint == null)
                     return;
                 var curPoint = convertToPoint(e);
@@ -34,27 +44,11 @@ var RomanLettersDrillBook;
                 _this.context.lineTo(curPoint.x, curPoint.y);
                 _this.context.closePath();
                 _this.context.stroke();
-                _this.lastPoint = isEnd ? null : curPoint;
-            };
-
-            var eventType = 'mouse';
-            if (navigator.pointerEnabled)
-                eventType = 'pointer';
-
-            var $canvas = $(canvasElement);
-            $canvas.on(eventType + 'down', function (e) {
-                _this.context.strokeStyle = e.button == 0 ? 'black' : 'white';
-                _this.context.lineWidth = e.button == 0 ? 8 : 32;
-                _this.lastPoint = convertToPoint(e);
-            }).on(eventType + 'up', function (e) {
+                _this.lastPoint = curPoint;
+            }).on('mouseup', function (e) {
+                _this.canvasElement.releaseCapture();
                 _this.lastPoint = null;
                 _this.fireDrawEvent();
-            }).on(eventType + 'move', function (e) {
-                return drawStroke(e, false);
-            }).on(eventType + 'leave', function (e) {
-                return drawStroke(e, true);
-            }).on(eventType + 'enter', function (e) {
-                return drawStroke(e, false);
             });
         }
         DrawableCanvas.prototype.fireDrawEvent = function () {
