@@ -1,4 +1,11 @@
-﻿body, div, canvas, span, header, h1 {
+﻿* {
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+body, div, canvas, span, header, h1 {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -38,6 +45,10 @@ header {
     #btnPlay.disabled {
         opacity: 0.2;
         pointer-events: none;
+    }
+
+    #btnPlay:hover {
+        zoom: 1.1;
     }
 
 footer {
